@@ -57,14 +57,16 @@ function App() {
   const budgetIdRef = useRef()
   const [BudgetId, setBudgetId] = useState()
   const SaveBudget = () => {
-    setBudgetList(currlist => {
-      return [
-        ...currlist,
-        { id: currlist.length + 1, title: nameRef.current.value, spentvalue: 0, budgetvalue: maxRef.current.value },
-      ]
-    }
-    )
-    handleCloseBudget()
+    setBudgetList(currList => {
+      const newBudget = {
+        id: currList.length + 1,
+        title: nameRef.current.value,
+        spentvalue: 0,
+        budgetvalue: maxRef.current.value,
+      };
+      return [...currList, newBudget];
+    });
+    handleCloseBudget();
   }
   const ShowInnerExpensesModal = (id)=> {
     setBudgetId(id);
@@ -75,9 +77,9 @@ function App() {
   }
   const SaveExpense = () => {
     const newExpense = {
-      description: descriptionRef.current.value.trim(),
+      description: descriptionRef.current.value,
       amount: parseFloat(amountRef.current.value),
-      budgetId: budgetIdRef.current.value
+      budgetId: parseInt(budgetIdRef.current.value)
     };
   
     setExpenseList((curr) => [...curr, newExpense]);
